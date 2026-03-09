@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "mcp__plugin_serena_serena__list_dir"
+    ]
+  }
+}

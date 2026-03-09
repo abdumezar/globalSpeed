@@ -1,0 +1,9 @@
+node_modules/
+.vscode/
+build/
+buildFf/
+Archive*
+z.md
+.DS_Store
+**/*.env
+private/

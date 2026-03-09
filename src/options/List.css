@@ -1,0 +1,15 @@
+.List {
+	interpolate-size: allow-keywords;
+}
+
+.List,
+.ListItem .ListItemLabel {
+	user-select: none;
+	cursor: ns-resize;
+}
+
+.ListItemCore,
+.ListItemLabel span {
+	cursor: initial;
+	user-select: initial;
+}

@@ -1,0 +1,17 @@
+.WidgetModal {
+	width: 600px;
+	max-width: 90vw;
+
+	.NumericInput {
+		width: 50px;
+	}
+
+	.control {
+		display: flex;
+		column-gap: 10px;
+	}
+
+	.RegularTooltip {
+		margin-left: 7px;
+	}
+}
