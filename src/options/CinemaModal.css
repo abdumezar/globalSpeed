@@ -5,9 +5,9 @@
 
 	.filters {
 		max-width: 300px;
-		margin: 30px 0px;
+		margin: 28px 0px;
 		padding: 20px 0px;
-		border-bottom: 1px solid var(--border);
-		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border-weak);
+		border-top: 1px solid var(--border-weak);
 	}
 }

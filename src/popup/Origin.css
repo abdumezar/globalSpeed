@@ -1,7 +1,7 @@
 .Origin {
 	display: grid;
 	grid-template-columns: repeat(3, max-content);
-	row-gap: 15px;
+	row-gap: 12px;
 	justify-content: space-around;
 
 	& > div {
@@ -9,13 +9,22 @@
 		background-color: var(--fg-color);
 		width: 30px;
 		height: 15px;
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		transition: background-color var(--transition-fast), border-color var(--transition-fast);
 
 		&.active {
-			background-color: var(--border);
+			background-color: var(--icon-vibrant-color);
+			border-color: var(--icon-vibrant-color);
+		}
+
+		&:hover {
+			border-color: var(--border-strong);
 		}
 
 		&:focus {
-			outline: 1px solid var(--focus-color);
+			outline: none;
+			box-shadow: 0 0 0 2px color-mix(in srgb, var(--focus-color) 30%, transparent);
 		}
 	}
 }

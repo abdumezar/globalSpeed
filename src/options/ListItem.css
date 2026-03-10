@@ -6,7 +6,7 @@
 	position: relative;
 	margin-bottom: 10px;
 	height: auto;
-	transition: height 100ms ease-out;
+	transition: height 150ms ease-out;
 	border-radius: var(--radius);
 
 	@starting-style {
@@ -18,7 +18,7 @@
 	}
 
 	&.disabled {
-		opacity: 0.66;
+		opacity: 0.55;
 	}
 
 	&.doubleSpacing {
@@ -36,18 +36,20 @@
 	&.focus {
 		left: 10px;
 		z-index: 2;
-		box-shadow: -4px 4px 4px var(--shadow-color);
+		box-shadow: -2px 3px 12px var(--shadow-color);
 	}
 
 	& > .ListItemLabel {
 		& > span {
 			display: inline-block;
-			padding: 4px 8px;
+			padding: 4px 10px;
 			background-color: var(--icon-vibrant-color);
 			color: var(--pure-color);
-			font-size: 0.95em;
+			font-size: 0.9em;
+			font-weight: var(--font-weight-medium);
 			user-select: none;
-			border-radius: var(--radius);
+			border-radius: var(--radius-pill);
+
 			&:hover {
 				svg {
 					width: auto;
@@ -75,13 +77,13 @@
 		grid-template-columns: max-content 1fr max-content;
 		background-color: var(--fg-color);
 		align-items: center;
-		padding-top: 10px;
+		padding-top: 12px;
 		position: relative;
-		column-gap: 5px;
+		column-gap: 6px;
 	}
 
 	& > .ListItemSub {
-		padding-bottom: 15px;
-		border-bottom: 1px solid var(--border);
+		padding-bottom: 14px;
+		border-bottom: 1px solid var(--border-weak);
 	}
 }

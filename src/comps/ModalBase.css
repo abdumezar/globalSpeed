@@ -1,15 +1,16 @@
 .ModalBase {
 	position: fixed;
-	left: 0px;
-	top: 0px;
+	left: 0;
+	top: 0;
 	width: 100vw;
 	height: 100vh;
 	background-color: var(--overlay-color);
 	z-index: 9999999999;
-
 	display: grid;
 	justify-content: center;
 	align-items: center;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 }
 
 .ModalMain {
@@ -17,9 +18,11 @@
 	max-width: 90vw;
 	max-height: 90vh;
 	background-color: var(--fg-color);
-	padding: 20px;
+	padding: 24px;
 	overflow-y: auto;
-	border-radius: var(--radius);
+	border-radius: var(--radius-2xl);
+	border: 1px solid var(--border-weak);
+	box-shadow: var(--shadow-elevated);
 }
 
 .ModalBase.isMobile .ModalMain {

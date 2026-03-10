@@ -16,7 +16,7 @@
 	}
 
 	& > .sectionControls {
-		margin-top: 20px;
+		margin-top: 24px;
 		display: grid;
 		grid-template-columns: repeat(3, max-content) 1fr;
 		justify-items: right;

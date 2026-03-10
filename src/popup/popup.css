@@ -13,10 +13,11 @@ body {
 }
 
 #SuperDisable {
-	padding: 10px;
+	padding: 12px;
 	background-color: var(--fg-color);
-	color: var(--icon-color);
+	color: var(--icon-muted-color);
 	cursor: pointer;
+	text-align: center;
 }
 
 #App {
@@ -26,7 +27,7 @@ body {
 	}
 
 	& > .panel {
-		padding: 8px;
+		padding: 12px;
 		min-height: 40px;
 
 		& > .unloaded {

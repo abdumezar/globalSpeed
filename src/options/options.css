@@ -6,7 +6,7 @@
 		justify-content: center;
 	}
 	scrollbar-width: thin;
-	scrollbar-color: var(--bg-color) var(--fg-color);
+	scrollbar-color: var(--mg-color) var(--bg-color);
 }
 
 #App {
@@ -23,25 +23,29 @@
 
 	& > .section {
 		background-color: var(--fg-color);
-		padding: 20px;
-		margin-bottom: 40px;
+		padding: 28px;
+		margin-bottom: 32px;
 		box-shadow: var(--card-shadow);
+		border: 1px solid var(--border-weak);
 		border-radius: var(--radius-2xl);
 
 		& > .subHeader {
-			opacity: 0.5;
+			opacity: 0.55;
 			font-style: italic;
-			font-size: 1.2em;
-			margin-top: -10px;
-			margin-bottom: 10px;
+			font-size: 1.15em;
+			margin-top: -8px;
+			margin-bottom: 16px;
+			color: var(--text-secondary);
 		}
 
 		&.promo {
 			display: inline-block;
 			cursor: pointer;
+			transition: opacity var(--transition-fast), box-shadow var(--transition-base);
 
 			&:hover {
-				opacity: 0.9;
+				opacity: 0.95;
+				box-shadow: var(--shadow-elevated);
 			}
 
 			.a {
@@ -49,7 +53,7 @@
 				&:hover {
 					text-decoration: underline;
 				}
-				font-weight: bold;
+				font-weight: var(--font-weight-semibold);
 				font-size: 1.2em;
 
 				img {
@@ -69,6 +73,9 @@
 
 		& > h2 {
 			margin-top: 0;
+			font-weight: var(--font-weight-semibold);
+			letter-spacing: -0.02em;
+			font-size: 1.4em;
 		}
 	}
 }

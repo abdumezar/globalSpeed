@@ -1,14 +1,17 @@
 .KeyPicker {
-	padding: 5px 0px;
-	background-color: var(--fg-color);
+	padding: 6px 8px;
+	background-color: var(--mg-color);
 	border: 1px solid var(--border);
 	color: var(--text-color);
 	text-align: center;
 	user-select: none;
 	cursor: pointer;
-	border-radius: var(--radius);
+	border-radius: var(--radius-md);
+	font-weight: var(--font-weight-medium);
+	transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 
 	&:focus {
-		outline: 1px solid var(--focus-color);
+		border-color: var(--focus-color);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus-color) 18%, transparent);
 	}
 }

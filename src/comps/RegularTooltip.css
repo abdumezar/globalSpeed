@@ -1,12 +1,15 @@
 .RegularTooltip {
 	user-select: none;
-	padding: 0px 4px;
-	background-color: var(--fg-color);
-	color: var(--text-color);
+	padding: 1px 6px;
+	background-color: var(--mg-color);
+	color: var(--text-secondary);
 	border: 1px solid var(--border);
-	border-radius: var(--radius);
+	border-radius: var(--radius-pill);
 	cursor: pointer;
 	opacity: 0.75;
+	font-size: 0.85em;
+	font-weight: var(--font-weight-medium);
+	transition: opacity var(--transition-fast);
 
 	&:hover {
 		opacity: 1;

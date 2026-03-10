@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(cd:*)",
-      "mcp__plugin_serena_serena__list_dir"
+      "mcp__plugin_serena_serena__list_dir",
+      "Bash(cd \"G:\\\\Private\\\\Tools\\\\globalSpeed\" && npm run build:dev 2>&1)",
+      "Bash(tail:*)",
+      "Bash(cd \"G:/Private/Tools/globalSpeed\" && cp -r static/. staticCh/. build/unpacked 2>&1)"
     ]
   }
 }

@@ -1,9 +1,11 @@
 .ReverseButton {
-	font-size: 1.3em;
+	font-size: 1.25em;
 	width: 100%;
-	padding: 5px;
-	border-width: 3px;
+	padding: 8px;
+	border-width: 2px;
 	line-height: 1.5;
+	border-radius: var(--radius);
+	font-weight: var(--font-weight-medium);
 
 	& > svg {
 		margin-right: 10px;

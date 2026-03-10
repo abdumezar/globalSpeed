@@ -4,14 +4,15 @@
 
 	& > button.reset {
 		font-size: 1.14rem;
+		margin-top: 8px;
 	}
 
 	.presetControl {
 		display: grid;
 		grid-template-columns: repeat(3, max-content);
-		gap: 10px;
+		gap: 8px;
 		font-size: 0.95em;
-		margin-bottom: 15px;
+		margin-bottom: 16px;
 
 		& > .NumericInput {
 			width: 60px;

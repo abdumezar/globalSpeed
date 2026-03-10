@@ -1,22 +1,16 @@
 .TooltipPopup {
-	line-height: normal;
+	line-height: 1.4;
 	pointer-events: none;
 	position: fixed;
 	display: block;
-	background-color: var(--text-color);
-	border: 1px solid var(--pure-color);
-	color: var(--pure-color);
-	padding: 10px;
+	background-color: var(--fg-color-opp);
+	color: var(--text-color-opp);
+	padding: 8px 12px;
 	white-space: break-spaces;
-	border-radius: var(--radius);
-	opacity: 0.85;
+	border-radius: var(--radius-md);
 	z-index: 9999999999999;
 	overflow-wrap: break-word;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	user-select: none;
-	/* transition: opacity 0s linear 200ms; */
-
-	/* @starting-style {
-		opacity: 0;
-	} */
+	box-shadow: var(--shadow-elevated);
 }

@@ -1,6 +1,6 @@
 .SectionHelp {
 	& > .card {
-		margin-bottom: 30px;
+		margin-bottom: 28px;
 	}
 
 	& > .controls {
@@ -11,15 +11,17 @@
 
 		& > button {
 			text-transform: uppercase;
+			font-size: 0.85em;
+			letter-spacing: 0.03em;
 		}
 
 		& > .right {
 			display: grid;
 			grid-template-columns: max-content max-content max-content max-content;
-			column-gap: 5px;
+			column-gap: 6px;
 
 			& > *:nth-child(3) {
-				margin-left: 15px;
+				margin-left: 14px;
 			}
 		}
 	}

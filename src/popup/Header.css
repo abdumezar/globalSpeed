@@ -3,9 +3,10 @@
 	grid-template-columns: repeat(3, max-content) 1fr repeat(5, max-content);
 	justify-items: right;
 	align-items: center;
-	padding: 3px 5px 0px 5px;
-	border-bottom: 1px solid var(--border);
+	padding: 8px 10px 6px 10px;
+	border-bottom: 1px solid var(--border-weak);
 	background-color: var(--fg-color);
+	gap: 2px;
 
 	& > .kebab {
 		margin-top: -3px;
@@ -30,10 +31,14 @@
 	}
 
 	& > div {
-		padding: 0 5px;
+		padding: 5px 6px;
 		color: var(--icon-color);
 		border: none;
 		cursor: pointer;
+		border-radius: var(--radius-md);
+		transition:
+			background-color var(--transition-fast),
+			color var(--transition-fast);
 
 		&.noPadding {
 			padding: 0;
@@ -44,18 +49,18 @@
 		}
 
 		&:hover {
-			opacity: 0.9;
+			background-color: var(--control-hover-bg-color);
 		}
 
 		@keyframes beat {
 			0% {
 				transform: scale(1);
 			}
-			90% {
-				transform: scale(0.8);
+			50% {
+				transform: scale(0.88);
 			}
-			95% {
-				transform: scale(1.1);
+			100% {
+				transform: scale(1);
 			}
 		}
 
@@ -67,20 +72,12 @@
 			}
 
 			&.beat {
-				animation: 1s ease-in beat infinite;
-			}
-
-			&:hover {
-				opacity: 0.9;
+				animation: 1.2s ease-in-out beat infinite;
 			}
 		}
 
 		&.muted {
 			color: var(--icon-muted-color);
-
-			&:hover {
-				opacity: 0.9;
-			}
 		}
 
 		& > svg {
@@ -96,16 +93,18 @@
 	position: fixed;
 
 	&.kebabOverlayOutline {
-		border: 4px solid var(--icon-vibrant-color);
+		border: 3px solid var(--icon-vibrant-color);
+		border-radius: var(--radius-md);
 	}
 
 	&.kebabOverlayMessage {
-		background-color: var(--bg-color);
+		background-color: var(--fg-color);
 		color: var(--icon-vibrant-color);
-		padding: 10px;
+		padding: 12px;
 		width: 100%;
 		text-align: center;
-		font-weight: bold;
+		font-weight: var(--font-weight-semibold);
 		font-size: 0.9em;
+		box-shadow: var(--card-shadow);
 	}
 }

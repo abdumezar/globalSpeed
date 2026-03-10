@@ -4,20 +4,20 @@
 	& > .header {
 		display: grid;
 		grid-template-columns: 1fr 60px max-content;
-		column-gap: 5px;
-		margin-bottom: 2px;
+		column-gap: 6px;
+		margin-bottom: 4px;
 		align-items: center;
 
 		& > span {
-			align-self: center;
-			font-weight: 400;
+			font-weight: var(--font-weight-medium);
 			color: var(--text-color);
+			font-size: 0.95em;
 		}
 	}
 
 	&.highlight > .header > span {
 		color: var(--icon-vibrant-color);
-		font-weight: 600;
+		font-weight: var(--font-weight-semibold);
 	}
 
 	& > input[type="range"] {

@@ -1,16 +1,18 @@
 .URLModal {
 	scrollbar-width: thin;
-	scrollbar-color: var(--bg-color) var(--fg-color);
+	scrollbar-color: var(--mg-color) var(--fg-color);
 
 	& > .header {
 		display: grid;
 		grid-template-columns: 1fr max-content;
+		align-items: center;
 
 		& > div:first-child {
 			font-size: 1.3em;
+			font-weight: var(--font-weight-semibold);
 		}
 
-		margin-bottom: 10px;
+		margin-bottom: 12px;
 	}
 
 	& > .subHeader {
@@ -18,7 +20,8 @@
 		font-style: italic;
 		font-size: 1.1em;
 		margin-top: -10px;
-		margin-bottom: 15px;
+		margin-bottom: 16px;
+		color: var(--text-secondary);
 		translate: -2px 0px;
 	}
 
@@ -26,7 +29,7 @@
 		margin-bottom: 20px;
 
 		& > div {
-			margin-bottom: 15px;
+			margin-bottom: 14px;
 			display: grid;
 			grid-template-columns: max-content max-content 1fr max-content;
 			column-gap: 10px;

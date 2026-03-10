@@ -5,6 +5,12 @@
 .icon.MoveDrag {
 	cursor: ns-resize;
 	position: relative;
+	opacity: 0.5;
+	transition: opacity var(--transition-fast);
+
+	&:hover {
+		opacity: 0.8;
+	}
 
 	&:focus {
 		outline: none;
