@@ -48,7 +48,9 @@ export function SvgFilterList(props: { svgFilters: SvgFilter[]; onChange: (newSv
 					}}
 				>
 					{filterTypes.map((t) => (
-						<option value={t}>{(gvar.gsm.filter.otherFilters as any)[t]}</option>
+						<option key={t} value={t}>
+							{(gvar.gsm.filter.otherFilters as any)[t]}
+						</option>
 					))}
 				</select>
 				<button

@@ -1,5 +1,5 @@
 import { produce } from "immer"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { FaPowerOff } from "react-icons/fa"
 import { GoArrowDown, GoArrowUp, GoX } from "react-icons/go"
 import { SliderPlus } from "@/comps/SliderPlus"
@@ -205,7 +205,7 @@ export function SvgFilterItem(props: {
 								br: true,
 							},
 						].map((info) => (
-							<>
+							<Fragment key={info.key}>
 								<SliderPlus
 									label={
 										<>
@@ -239,7 +239,7 @@ export function SvgFilterItem(props: {
 									}}
 								/>
 								{!!info.br && <br />}
-							</>
+							</Fragment>
 						))}
 					</>
 				)}
