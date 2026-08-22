@@ -8,7 +8,6 @@ import { isMac, isMobile } from "@/utils/helper"
 import { ErrorFallback } from "../comps/ErrorFallback"
 import { SectionEditor } from "./SectionEditor"
 import { SectionFlags } from "./SectionFlags"
-import { SectionHelp } from "./SectionHelp"
 import { SectionRules } from "./SectionRules"
 import "./options.css"
 
@@ -30,7 +29,6 @@ const Options = (props: {}) => {
 			<SectionFlags />
 			<SectionEditor />
 			{!(isMac() && isMobile()) && <SectionRules />}
-			<SectionHelp />
 		</div>
 	)
 }
