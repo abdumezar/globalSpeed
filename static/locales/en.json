@@ -343,6 +343,15 @@
 			"status": "URL rules have changed some values",
 			"strictness": "Strictness",
 			"strictnessTooltip": "Control how frequently the URL rule is applied. \n1: Apply only once until no longer matching.\n2: Re-apply if domain name is different.\n3: Re-apply every page load.\n4: Re-apply every time URL changes.",
+			"strictnessModes": {
+				"1": "Only once",
+				"2": "On domain change",
+				"3": "Every page load",
+				"4": "Every URL change"
+			},
+			"when": "When",
+			"then": "Then",
+			"addCondition": "Add condition",
 			"headers": {
 				"keybindsAllow": "Websites where shortcuts will work",
 				"keybindsBlock": "Websites where shortcuts will be disabled",

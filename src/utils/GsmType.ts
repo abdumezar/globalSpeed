@@ -342,6 +342,15 @@ export type Gsm = {
       status: string,
       strictness: string,
       strictnessTooltip: string,
+      strictnessModes: {
+        "1": string,
+        "2": string,
+        "3": string,
+        "4": string
+      },
+      when: string,
+      then: string,
+      addCondition: string,
       headers: {
         keybindsAllow: string,
         keybindsBlock: string,
