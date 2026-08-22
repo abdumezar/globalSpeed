@@ -7,8 +7,8 @@ type BadgeInit = Awaited<ReturnType<typeof getBadgeInit>>
 
 let commonInit: BadgeInit
 
-const standardIcons = { "128": `icons/128.png` }
-const grayscaleIcons = { "128": `icons/128g.png` }
+const standardIcons = { "16": `icons/16.png`, "32": `icons/32.png`, "48": `icons/48.png`, "128": `icons/128.png` }
+const grayscaleIcons = { "16": `icons/16g.png`, "32": `icons/32g.png`, "48": `icons/48g.png`, "128": `icons/128g.png` }
 
 async function updateVisible(tabs?: chrome.tabs.Tab[]) {
 	if (!commonInit) {
