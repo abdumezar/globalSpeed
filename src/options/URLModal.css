@@ -1,45 +1,4 @@
 .URLModal {
 	scrollbar-width: thin;
 	scrollbar-color: var(--mg-color) var(--fg-color);
-
-	& > .header {
-		display: grid;
-		grid-template-columns: 1fr max-content;
-		align-items: center;
-
-		& > div:first-child {
-			font-size: 1.3em;
-			font-weight: var(--font-weight-semibold);
-		}
-
-		margin-bottom: 12px;
-	}
-
-	& > .subHeader {
-		opacity: 0.5;
-		font-style: italic;
-		font-size: 1.1em;
-		margin-top: -10px;
-		margin-bottom: 16px;
-		color: var(--text-secondary);
-		translate: -2px 0px;
-	}
-
-	& > .parts {
-		margin-bottom: 20px;
-
-		& > div {
-			margin-bottom: 14px;
-			display: grid;
-			grid-template-columns: max-content max-content 1fr max-content;
-			column-gap: 10px;
-			align-items: center;
-		}
-	}
-
-	& > .controls {
-		display: grid;
-		grid-template-columns: max-content max-content;
-		column-gap: 10px;
-	}
 }
