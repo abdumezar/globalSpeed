@@ -117,8 +117,11 @@ function getTags(tagList: string) {
 		...new Set(
 			tagList
 				.toLowerCase()
-				.split(/,+\s+/)
-				.filter((tag) => tag.trim()),
+				// Whitespace around the comma is optional: "live,lyrics" must split
+				// the same way "live, lyrics" does.
+				.split(/\s*,+\s*/)
+				.map((tag) => tag.trim())
+				.filter((tag) => tag),
 		),
 	]
 }
