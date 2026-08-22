@@ -3,16 +3,11 @@
 const { readdir, readFile, writeFile, mkdir } = require("fs/promises")
 const { join, parse } = require("path")
 const { env, argv, exit } = require("process")
-const { createInterface } = require("readline")
-const OpenAI = require("openai")
-const { z } = require("zod")
-const { zodTextFormat } = require("openai/helpers/zod")
 
-const CASING_SENSITIVE_LANGUAGES = ["de", "es", "fr", "id", "it", "ms", "pl", "pt_BR", "ru", "tr", "uk", "vi"]
-const ALL_LANGUAGES = [...CASING_SENSITIVE_LANGUAGES, "ar", "ja", "ko", "th", "zh_CN", "zh_TW"]
-
-/** @type { OpenAI } */
-let openai
+// Arabic has no letter case, so nothing needs casing adjustment today. New
+// languages that do go here.
+const CASING_SENSITIVE_LANGUAGES = []
+const ALL_LANGUAGES = [...CASING_SENSITIVE_LANGUAGES, "ar"]
 
 async function main() {
 	if (argv[2] === "--casing") {
@@ -22,20 +17,13 @@ async function main() {
 	} else if (argv[2] === "--build") {
 		build()
 	} else {
-		if (!env.OPENAI_API_KEY) {
-			console.error("No OpenAI key provided as environmental variable.")
-			exit(1)
-		}
-		openai = new OpenAI({
-			apiKey: env.OPENAI_API_KEY,
-		})
 		await adhereEnglish()
 	}
 }
 
-let cachedKeyContext = {}
-
 async function adhereEnglish() {
+	/** @type {Record<string, string[]>} */
+	const missingByLang = {}
 	let rootLocales = join("static", "locales")
 	let englishLocale = join(rootLocales, "en.json")
 	const englishJson = JSON.parse(await readFile(englishLocale))
@@ -62,8 +50,8 @@ async function adhereEnglish() {
 		}
 
 		let newJson = {}
-		/** @type {{id: string, original: string, translation: string, context: string}[]} */
-		let allTranslation = []
+		/** Keys present in en.json that this locale has no translation for. */
+		let untranslated = []
 
 		for (let leaf of englishLeaves) {
 			let base = leaf.path.at(-1)
@@ -71,7 +59,7 @@ async function adhereEnglish() {
 			if (dots.has(leaf.dots)) {
 				setNestedValue(newJson, leaf.path, getNestedValue(json, leaf.path))
 			} else if (orphanedByBase.has(base) && orphanCounts.get(base) === 1) {
-				// Key was moved to a different group — reuse existing translation
+				// Key was moved to a different group - reuse existing translation
 				const orphan = orphanedByBase.get(base)
 				setNestedValue(newJson, leaf.path, orphan.value)
 				orphanedByBase.delete(base)
@@ -79,26 +67,32 @@ async function adhereEnglish() {
 			} else {
 				if (base.startsWith("_")) continue
 
-				let newValue = leaf.value
-				if (newValue) {
-					cachedKeyContext[leaf.dots] = (cachedKeyContext[leaf.dots] ?? (await prompt(`${leaf.dots} context > `))) || ""
-					newValue = await translate(base, leaf.value, cachedKeyContext[leaf.dots], allTranslation, lang)
-					allTranslation.push({
-						id: base,
-						original: leaf.value,
-						translation: newValue,
-						context: cachedKeyContext[leaf.dots],
-					})
-					console.log(`(${lang}) Translated ${leaf.dots} to "${newValue}"`)
-				}
-
-				setNestedValue(newJson, leaf.path, newValue)
+				// Fall back to the English copy so the UI renders a real string
+				// instead of "undefined", and report it so a human can supply the
+				// actual translation.
+				setNestedValue(newJson, leaf.path, leaf.value)
+				if (leaf.value) untranslated.push(leaf.dots)
 			}
 		}
 
 		await writeFile(path, JSON.stringify(newJson, null, "\t") + "\n", {
 			encoding: "utf8",
 		})
+
+		if (untranslated.length) {
+			missingByLang[lang] = untranslated
+			console.warn(`(${lang}) ${untranslated.length} key(s) need translation:`)
+			for (let dots of untranslated) console.warn(`    ${dots} = ${JSON.stringify(getNestedValue(englishJson, dots.split(".")))}`)
+		} else {
+			console.log(`(${lang}) up to date.`)
+		}
+	}
+
+	const langs = Object.keys(missingByLang)
+	if (langs.length) {
+		const total = langs.reduce((sum, l) => sum + missingByLang[l].length, 0)
+		console.error(`\n${total} string(s) across ${langs.length} locale(s) fell back to English. Translate them in static/locales/, then re-run.`)
+		exit(1)
 	}
 }
 
@@ -295,66 +289,6 @@ function capitalize(text, locale) {
 	const textArray = [...text]
 	textArray[i] = textArray[i].toLocaleUpperCase(locale.replace("_", "-"))
 	return textArray.join("")
-}
-
-/**
- *
- * @param {string} input
- * @returns {Promise<string>}
- */
-function prompt(input) {
-	const reader = createInterface({
-		input: process.stdin,
-		output: process.stdout,
-	})
-	return new Promise((res, rej) => {
-		reader.question(input, (value) => {
-			res(value)
-			reader.close()
-		})
-	})
-}
-
-async function complete(content, zodObject) {
-	// console.log(content)
-	const response = await openai.responses.parse({
-		model: "gpt-5.2",
-		input: [
-			{ role: "system", content: "You are a helpful assistant." },
-			{ role: "user", content },
-		],
-		text: {
-			format: zodTextFormat(zodObject, "event"),
-		},
-	})
-
-	return response.output_parsed
-}
-
-/**
- * @param {string} id
- * @param {string} text
- * @param {string | null} context
- * @param {{id: string, text: string, context: string}[]} batchedTranslations
- * @param {string} lang
- * @returns {Promise<string>}
- */
-async function translate(id, text, context, batchedTranslations, lang) {
-	const inputObj = { id, text }
-	if (context) inputObj["context"] = context
-	if (batchedTranslations) inputObj["batchedTranslations"] = batchedTranslations
-	const input = `
-Translate the provided text into '${lang}' (2 letter language code). This request was made through a unsupervised pipeline for a UI translation software. In general try to keep the translation as concise as the original text.
-
-The input is a JSON object with the following fields:
-- "id": An internal identifier. NEVER translate this.
-- "text": The source text to translate. This is the ONLY field to translate.
-- "context": Additional information that may be attached to this request. If provided, use this only to improve translation accuracy.
-- "batchedTranslations": An array of previously translated strings from the same batch, provided for reference.
-
-\n${JSON.stringify(inputObj, null, 2)}
-`
-	return (await complete(input, z.object({ translation: z.string() }))).translation
 }
 
 main()
