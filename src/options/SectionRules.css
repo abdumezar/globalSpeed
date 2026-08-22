@@ -1,24 +1,209 @@
 .SectionRules {
+	/* While a rule is expanded its row grows tall; keep the gripper and the
+	   delete button pinned to the summary line instead of floating to the
+	   vertical middle of the panel. */
+	& > .List .ListItemCore:has(> .children > .Rule.open) {
+		align-items: start;
+
+		& > .MoveDrag,
+		& > .close {
+			margin-top: 4px;
+		}
+	}
+
 	& > .List .Rule {
 		display: grid;
+		grid-template-columns: max-content minmax(0, 1fr) max-content max-content;
+		grid-template-areas:
+			"toggle summary kebab chevron"
+			"details details details details";
 		column-gap: 10px;
-		grid-template-columns: max-content 600px 1fr repeat(2, max-content);
 		align-items: center;
 
-		& > .show {
-			border-radius: var(--radius-md);
+		& > input[type="checkbox"] {
+			grid-area: toggle;
 		}
 
-		& > .left {
-			display: grid;
-			align-items: center;
-			justify-content: left;
-			grid-auto-flow: column;
-			grid-auto-columns: max-content;
-			column-gap: 10px;
+		& > .kebabTooltip {
+			grid-area: kebab;
+		}
 
-			& > .NumericInput {
-				width: 60px;
+		& > .chevron {
+			grid-area: chevron;
+
+			& > svg {
+				transition: rotate var(--transition-base);
+			}
+		}
+
+		&.open > .chevron > svg {
+			rotate: 180deg;
+		}
+
+		/* ---- Summary row ---- */
+
+		& > .summary {
+			grid-area: summary;
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) max-content max-content;
+			align-items: center;
+			column-gap: 12px;
+			width: 100%;
+			text-align: left;
+			background-color: transparent;
+			border: 1px solid transparent;
+			border-radius: var(--radius-md);
+			padding: 5px 8px;
+			font-weight: var(--font-weight-normal);
+			cursor: pointer;
+
+			&:hover {
+				background-color: var(--control-hover-bg-color);
+			}
+
+			& > .arrow {
+				color: var(--icon-muted-color);
+				font-size: 1.1em;
+			}
+		}
+
+		/* Conditions half */
+
+		& .conditions {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			min-width: 0;
+			overflow: hidden;
+
+			&.neutral {
+				color: var(--text-secondary);
+				font-style: italic;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+
+				& > svg {
+					color: var(--error-border-color);
+					flex-shrink: 0;
+				}
+			}
+
+			& > .mode {
+				flex-shrink: 0;
+				font-size: 0.78em;
+				font-weight: var(--font-weight-semibold);
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+				padding: 2px 8px;
+				border-radius: var(--radius-pill);
+
+				&.allow {
+					color: var(--pure-color);
+					background-color: var(--brand-accent);
+				}
+
+				&.block {
+					color: var(--error-text-color);
+					background-color: var(--error-color);
+					border: 1px solid var(--error-border-color);
+				}
+			}
+
+			& > .chip {
+				min-width: 0;
+				max-width: 22ch;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				font-size: 0.9em;
+				padding: 2px 8px;
+				border-radius: var(--radius-sm);
+				background-color: var(--brand-surface);
+				color: var(--brand-text);
+				border: 1px solid transparent;
+
+				&.wildcard {
+					font-weight: var(--font-weight-semibold);
+					color: var(--text-secondary);
+					background-color: var(--mg-color);
+				}
+
+				&.more {
+					flex-shrink: 0;
+					color: var(--text-secondary);
+					background-color: transparent;
+					border-color: var(--border);
+				}
+			}
+		}
+
+		/* Action half */
+
+		& .summary > .action {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			white-space: nowrap;
+
+			& > .name {
+				font-weight: var(--font-weight-medium);
+			}
+
+			& > .value {
+				font-variant-numeric: tabular-nums;
+				padding: 2px 8px;
+				border-radius: var(--radius-sm);
+				background-color: var(--brand-surface-strong);
+				color: var(--brand-text);
+				font-weight: var(--font-weight-semibold);
+			}
+		}
+
+		/* ---- Expanded details ---- */
+
+		& > .details {
+			grid-area: details;
+			margin: 10px 0 6px 0;
+			padding: 16px 18px;
+			border: 1px solid var(--border-weak);
+			border-radius: var(--radius);
+			background-color: var(--mg-color);
+			display: grid;
+			row-gap: 16px;
+
+			& .fieldLabel {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-size: 0.85em;
+				font-weight: var(--font-weight-semibold);
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--text-secondary);
+				margin-bottom: 8px;
+			}
+
+			& > .then > .action,
+			& > .option {
+				display: grid;
+				grid-auto-flow: column;
+				grid-auto-columns: max-content;
+				justify-content: left;
+				align-items: center;
+				column-gap: 10px;
+
+				& .NumericInput {
+					width: 70px;
+				}
+			}
+
+			& > .option {
+				grid-auto-flow: row;
+				grid-auto-columns: initial;
+
+				& > input[type="text"] {
+					max-width: 420px;
+				}
 			}
 		}
 	}
